@@ -1,0 +1,59 @@
+name: Lint and Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.0
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
+     # TODO: Not sure how this should work, but we should not be removing the lock file.
+      - name: Remove deno.lock
+        run: rm -rf ./deno.lock
+
+      - name: Lint
+        run: deno lint ./src/*.ts
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.0
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
+      # TODO: Not sure how this should work, but we should not be removing the lock file.
+      - name: Remove deno.lock
+        run: rm -rf ./deno.lock
+
+      - name: Compile Deno Project
+        run: |
+          deno compile --output plankapi --unstable --no-check ./src/index.ts
