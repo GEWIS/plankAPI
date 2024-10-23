@@ -49,7 +49,7 @@ This project integrates email processing with [Planka](https://github.com/planka
 To run the application, ensure you have the required environment variables set up (see below). Then, execute the script:
 
 ```bash
-deno run  --allow-sys --allow-net --allow-env --allow-read --allow-write --unstable --env-file ./src/index.ts
+deno task exec:env
 ```
 
 ## Environment Variables

@@ -8,7 +8,8 @@
     ".": "./src/index.ts"
   },
   "tasks": {
-    "exec": "deno run --allow-all \\src\\index.ts",
+    "exec": "deno run --allow-all ./src/index.ts",
+    "exec:env": "deno run --allow-all --env-file ./src/index.ts",
     "test": "deno run --allow-net --allow-read --allow-sys --allow-env --env-file test.ts"
   },
   "imports": {
