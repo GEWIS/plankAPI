@@ -80,7 +80,7 @@ const downloadEmailBody = async (
 
 export default class Mailer {
   private readonly client: ImapFlow;
-  private ROOT_PATH: string = "API";
+  private ROOT_PATH: string = process.env["IMAP_ROOT"] || "API";
 
   constructor() {
     this.client = new ImapFlow({
