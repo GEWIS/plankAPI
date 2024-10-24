@@ -1,4 +1,4 @@
-import { ImapFlow, Readable } from "imapflow";
+import { ImapFlow, Readable } from 'imapflow';
 
 export interface CardEmail {
   title: string;
@@ -55,7 +55,7 @@ function extractDate(subject: string): Date | null {
  * @returns {Promise<string>} The content of the stream as a string.
  */
 const readableToString = async (readable: Readable): Promise<string> => {
-  let result = "";
+  let result = '';
 
   for await (const chunk of readable) {
     result += chunk;
@@ -70,26 +70,23 @@ const readableToString = async (readable: Readable): Promise<string> => {
  * @param {string} messageId - The ID of the email message.
  * @returns {Promise<string>} The email body as a string.
  */
-const downloadEmailBody = async (
-  client: ImapFlow,
-  messageId: string,
-): Promise<string> => {
-  const { content } = await client.download(messageId, "1", { uid: true }); // part '1' is typically the plain text part
+const downloadEmailBody = async (client: ImapFlow, messageId: string): Promise<string> => {
+  const { content } = await client.download(messageId, '1', { uid: true }); // part '1' is typically the plain text part
   return readableToString(content);
 };
 
 export default class Mailer {
   private readonly client: ImapFlow;
-  private ROOT_PATH: string = process.env["IMAP_ROOT"] || "API";
+  private ROOT_PATH: string = process.env['IMAP_ROOT'] || 'API';
 
   constructor() {
     this.client = new ImapFlow({
-      host: process.env["IMAP_HOST"] || "localhost",
-      port: Number(process.env["IMAP_PORT"] || "993"),
+      host: process.env['IMAP_HOST'] || 'localhost',
+      port: Number(process.env['IMAP_PORT'] || '993'),
       secure: true,
       auth: {
-        user: process.env["IMAP_USERNAME"] || "user",
-        pass: process.env["IMAP_PASSWORD"],
+        user: process.env['IMAP_USERNAME'] || 'user',
+        pass: process.env['IMAP_PASSWORD'],
       },
     });
   }
@@ -105,14 +102,12 @@ export default class Mailer {
     const emails: CardEmail[] = [];
 
     try {
-      for await (
-        const message of this.client.fetch("1:*", {
-          envelope: true,
-          headers: true,
-          flags: true,
-        })
-      ) {
-        const headers = "" + message.headers;
+      for await (const message of this.client.fetch('1:*', {
+        envelope: true,
+        headers: true,
+        flags: true,
+      })) {
+        const headers = '' + message.headers;
         const plankaBoardId = extractPlankaBoardId(headers);
         const plankaListId = extractPlankaListId(headers);
         const date = extractDate(message.envelope.subject);
@@ -143,7 +138,7 @@ export default class Mailer {
 
     if (rejected.length !== 0) {
       await this.client.mailboxOpen(`${this.ROOT_PATH}/IN`);
-      await this.rejectEmail(rejected.join(",")).catch((e) => console.error(e));
+      await this.rejectEmail(rejected.join(',')).catch((e) => console.error(e));
       await this.client.mailboxClose();
     }
 
@@ -154,16 +149,14 @@ export default class Mailer {
    * Handles the results of card processing by accepting or rejecting emails.
    * @param {Array<{card: CardEmail, state: 'ACCEPTED' | 'REJECTED'}>} results - List of cards and their states.
    */
-  async handleResults(
-    results: { card: CardEmail; state: "ACCEPTED" | "REJECTED" }[],
-  ) {
+  async handleResults(results: { card: CardEmail; state: 'ACCEPTED' | 'REJECTED' }[]) {
     await this.client.mailboxOpen(`${this.ROOT_PATH}/IN`);
     for (const result of results) {
-      if (result.state === "ACCEPTED") {
-        console.log("accepted", result.card.uid);
+      if (result.state === 'ACCEPTED') {
+        console.log('accepted', result.card.uid);
         await this.acceptEmail(result.card.uid);
       } else {
-        console.log("rejected", result.card.uid);
+        console.log('rejected', result.card.uid);
         await this.rejectEmail(result.card.uid);
       }
     }

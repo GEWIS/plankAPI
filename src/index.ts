@@ -1,5 +1,5 @@
-import Mailer from "./mailer";
-import Planka from "./planka";
+import Mailer from './mailer';
+import Planka from './planka';
 
 // Main workflow
 async function main() {
@@ -10,9 +10,9 @@ async function main() {
     const emails = await mailer.handleEmails();
     const result = await Planka.processCards(emails);
     await mailer.handleResults(result);
-    console.log("Process completed successfully.");
+    console.log('Process completed successfully.');
   } catch (error) {
-    console.error("An error occurred during the process:", error);
+    console.error('An error occurred during the process:', error);
   }
 }
 
