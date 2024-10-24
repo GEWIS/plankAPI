@@ -7,8 +7,8 @@
     "start": "ts-node src/index.ts",
     "start:env": "ts-node -r dotenv/config src/index.ts",
     "build": "tsc",
-    "lint": "eslint . --ext .vue,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.json --ignore-path .gitignore",
-    "lint:fix": "eslint . --fix --ext .vue,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.json --ignore-path .gitignore"
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "@gewis/planka-client": "github:GEWIS/planka-client#3bb88c2a8d86a9ba8f4fccf0a70e534047c6f88c",
@@ -16,7 +16,7 @@
     "imapflow": "^1.0.164"
   },
   "devDependencies": {
-    "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config",
+    "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config#01e8cae165e004ffa09c71fc333ee848df8a53c0",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.7.9",
     "dotenv": "^16.0.0",
