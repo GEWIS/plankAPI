@@ -110,7 +110,7 @@ export default class Planka {
 
         // Find the preferred list, which is the list named 'mail' or the first list available
         let preferredList = null;
-        const lists: List[] = (board.data?.included as any)?.lists ?? [];
+        const lists: List[] = (board.data?.included as { lists: List[] })?.lists ?? [];
 
         if (lists.length > 0) {
           // Find the list named 'mail', or fall back to the first list if not found
