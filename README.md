@@ -1,5 +1,4 @@
-
-# Planka email integration
+# Planka Email Integration
 
 This project integrates email processing with [Planka](https://github.com/plankanban/planka?tab=readme-ov-file), a Kanban board management tool. The application retrieves emails, extracts relevant information to create cards on Planka, and manages the acceptance or rejection of these cards based on specific criteria.
 
@@ -28,19 +27,23 @@ This project integrates email processing with [Planka](https://github.com/planka
    cd plankAPI
    ```
 
-2. **Set Up Deno**
+2. **Set Up Yarn**
 
-   Make sure you have Deno installed. You can follow the installation guide on the [Deno website](https://deno.land/#installation).
+   Make sure you have [Yarn](https://yarnpkg.com/getting-started/install) installed. You can follow the installation guide on the Yarn website.
 
 3. **Install Dependencies**
 
-   Deno handles dependencies through imports, so you don’t need a separate installation step.
+   Run the following command to install the required dependencies:
+
+   ```bash
+   yarn install
+   ```
 
 4. **Copy the .env-example File**
 
-    ```bash
-    cp .env-example .env
-    ```
+   ```bash
+   cp .env-example .env
+   ```
 
    Make sure to replace the default values with actual credentials before running the application.
 
@@ -49,7 +52,7 @@ This project integrates email processing with [Planka](https://github.com/planka
 To run the application, ensure you have the required environment variables set up (see below). Then, execute the script:
 
 ```bash
-deno task exec:env
+yarn start:env
 ```
 
 ## Environment Variables
@@ -76,29 +79,31 @@ Make sure to replace the default values with actual credentials before running t
 The main workflow is defined in `index.ts`:
 
 ```typescript
-import Mailer from "./mailer.ts";
-import Planka from "./planka.ts";
+import Mailer from "./mailer";
+import Planka from "./planka";
 
 // Main workflow
 async function main() {
-  Planka.initialize();
-  const mailer: Mailer = new Mailer();
+   Planka.initialize();
+   const mailer: Mailer = new Mailer();
 
-  try {
-    const emails = await mailer.handleEmails();
-    const result = await Planka.processCards(emails);
-    await mailer.handleResults(result);
-    console.log("Process completed successfully.");
-  } catch (error) {
-    console.error("An error occurred during the process:", error);
-  }
+   try {
+      const emails = await mailer.handleEmails();
+      const result = await Planka.processCards(emails);
+      await mailer.handleResults(result);
+      console.log("Process completed successfully.");
+   } catch (error) {
+      console.error("An error occurred during the process:", error);
+   }
 }
 
 // Execute main if this is the main module
-if (import.meta.main) {
-  void main();
+if (require.main === module) {
+   void main();
 }
 ```
+
+The `Dockerfile` will simply execute the index.ts file based on a cron schedule.
 
 ### Mailer Class
 

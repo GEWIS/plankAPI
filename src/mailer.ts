@@ -1,5 +1,4 @@
-import { ImapFlow } from "imapflow";
-import type { Readable } from "node:stream";
+import { ImapFlow, Readable } from "imapflow";
 
 export interface CardEmail {
   title: string;
@@ -12,7 +11,7 @@ export interface CardEmail {
 
 /**
  * Extracts the Planka board ID from email headers.
- * @param {string} headers - The email headers as a string.
+ * @param {string} headers - The ema il headers as a string.
  * @returns {string | null} The extracted board ID, or null if not found.
  */
 function extractPlankaBoardId(headers: string): string | null {
@@ -42,6 +41,7 @@ function extractDate(subject: string): Date | null {
   const match = subject.match(datePattern);
 
   if (match) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, day, month, year, hour, minute] = match;
     return new Date(`${year}-${month}-${day}T${hour}:${minute}:00`);
   } else {
@@ -84,12 +84,12 @@ export default class Mailer {
 
   constructor() {
     this.client = new ImapFlow({
-      host: Deno.env.get("IMAP_HOST") || "localhost",
-      port: Number(Deno.env.get("IMAP_PORT") || "993"),
+      host: process.env["IMAP_HOST"] || "localhost",
+      port: Number(process.env["IMAP_PORT"] || "993"),
       secure: true,
       auth: {
-        user: Deno.env.get("IMAP_USERNAME") || "user",
-        pass: Deno.env.get("IMAP_PASSWORD"),
+        user: process.env["IMAP_USERNAME"] || "user",
+        pass: process.env["IMAP_PASSWORD"],
       },
     });
   }
@@ -112,14 +112,13 @@ export default class Mailer {
           flags: true,
         })
       ) {
-        console.error("received message", message);
         const headers = "" + message.headers;
         const plankaBoardId = extractPlankaBoardId(headers);
         const plankaListId = extractPlankaListId(headers);
         const date = extractDate(message.envelope.subject);
 
         if (!plankaBoardId) {
-          rejected.unshift(message.uid);
+          rejected.unshift(String(message.uid));
           continue;
         }
 
