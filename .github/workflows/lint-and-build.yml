@@ -15,5 +15,5 @@ jobs:
       node-version: "22.x"
       package-manager: "yarn"
       lint: true
-      format: false
+      format: true
       build: true

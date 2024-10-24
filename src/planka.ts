@@ -4,14 +4,15 @@ import {
   CreateCardRequest,
   UpdateCardRequest,
   getBoard,
-  updateCard, GetBoardRequest, GetBoardResponse
-} from "@gewis/planka-client";
-import type { List } from "@gewis/planka-client";
-import type { Client, Options } from "@hey-api/client-fetch";
-import type { CardEmail } from "./mailer.ts";
+  updateCard,
+  GetBoardRequest,
+  GetBoardResponse,
+} from '@gewis/planka-client';
+import type { List } from '@gewis/planka-client';
+import type { Client, Options } from '@hey-api/client-fetch';
+import type { CardEmail } from './mailer.ts';
 
-const DEFAULT_PLANKA_URL = process.env["PLANKA_URL"] ||
-  "http://localhost:3000";
+const DEFAULT_PLANKA_URL = process.env['PLANKA_URL'] || 'http://localhost:3000';
 
 interface CacheEntry {
   board: GetBoardResponse;
@@ -37,8 +38,7 @@ export default class Planka {
   private initializeClient() {
     if (!Planka.client) {
       const plankaUrl = this.settings.plankaUrl || DEFAULT_PLANKA_URL;
-      const plankaApiKey = this.settings.plankaApiKey ||
-        process.env["PLANKA_API_KEY"];
+      const plankaApiKey = this.settings.plankaApiKey || process.env['PLANKA_API_KEY'];
 
       client.setConfig({
         baseUrl: plankaUrl,
@@ -55,9 +55,7 @@ export default class Planka {
    * @param {Object} [settings] - Optional settings for Planka initialization.
    * @returns {Planka} Returns the singleton instance of Planka.
    */
-  public static initialize(
-    settings?: { plankaUrl?: string; plankaApiKey?: string },
-  ): Planka {
+  public static initialize(settings?: { plankaUrl?: string; plankaApiKey?: string }): Planka {
     if (!Planka.instance) {
       Planka.instance = new Planka(settings || {});
     }
@@ -70,9 +68,7 @@ export default class Planka {
    */
   private static pre() {
     if (!Planka.client) {
-      throw new Error(
-        "Client has not been initialized. Please call initialize() first.",
-      );
+      throw new Error('Client has not been initialized. Please call initialize() first.');
     }
   }
 
@@ -107,16 +103,13 @@ export default class Planka {
       const status = board.response.status;
 
       if (status === 200 && board.data) {
-
         // Find the preferred list, which is the list named 'mail' or the first list available
         let preferredList = null;
-        const lists: List[] = (board.data?.included as any)?.lists ?? [];
+        const lists: List[] = (board.data?.included as { lists: List[] })?.lists ?? [];
 
         if (lists.length > 0) {
           // Find the list named 'mail', or fall back to the first list if not found
-          preferredList = lists.find((list: List) =>
-              list.name.toLowerCase() === "mail"
-          ) || lists[0];
+          preferredList = lists.find((list: List) => list.name.toLowerCase() === 'mail') || lists[0];
         }
 
         Planka.boardCache.set(id, { board: board.data, preferredList });
@@ -133,31 +126,27 @@ export default class Planka {
    * @returns {Promise<{result: {card: CardEmail, state: 'ACCEPTED' | 'REJECTED'}[]}>}
    * Returns a result object indicating whether each card was accepted or rejected.
    */
-  static async processCards(
-    cards: CardEmail[],
-  ): Promise<
-    { card: CardEmail; state: "ACCEPTED" | "REJECTED" }[]
-  > {
+  static async processCards(cards: CardEmail[]): Promise<{ card: CardEmail; state: 'ACCEPTED' | 'REJECTED' }[]> {
     Planka.pre();
 
     // Ensure boards are cached before card processing
     await Planka.preProcessCards(cards);
 
-    const results: { card: CardEmail; state: "ACCEPTED" | "REJECTED" }[] = [];
+    const results: { card: CardEmail; state: 'ACCEPTED' | 'REJECTED' }[] = [];
 
     for (const card of cards) {
       const board = Planka.boardCache.get(card.boardId);
 
       if (!board) {
         // Reject card if the board is not found in the cache
-        results.push({ card, state: "REJECTED" });
+        results.push({ card, state: 'REJECTED' });
         continue;
       }
 
       const listId = card.listId || board.preferredList?.id;
       if (!listId) {
         // Reject card if the board has no list
-        results.push({ card, state: "REJECTED" });
+        results.push({ card, state: 'REJECTED' });
         continue;
       }
 
@@ -169,14 +158,14 @@ export default class Planka {
         body: {
           name: card.title,
           position: 0,
-        }
+        },
       } as Options<CreateCardRequest, false>).then(async (result) => {
         const cardResult = result.data;
         const status = result.response.status;
 
         if (status !== 200 || !cardResult) return;
 
-        results.push({ card, state: "ACCEPTED" });
+        results.push({ card, state: 'ACCEPTED' });
 
         // Update the card's description and due date if provided
         if (card.body) {
