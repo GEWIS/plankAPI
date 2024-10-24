@@ -1,5 +1,5 @@
-import Mailer from "./mailer.ts";
-import Planka from "./planka.ts";
+import Mailer from "./mailer";
+import Planka from "./planka";
 
 // Main workflow
 async function main() {
@@ -17,6 +17,6 @@ async function main() {
 }
 
 // Execute main if this is the main module
-if (import.meta.main) {
+if (require.main === module) {
   void main();
 }

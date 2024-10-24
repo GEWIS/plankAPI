@@ -1,8 +1,37 @@
 {
-  "devDependencies": {
+  "name": "plankapi",
+  "version": "0.0.0",
+  "description": "Planka API service",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:env": "ts-node -r dotenv/config src/index.ts",
+    "build": "tsc",
+    "lint": "eslint . --ext .vue,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.json --ignore-path .gitignore",
+    "lint:fix": "eslint . --fix --ext .vue,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.json --ignore-path .gitignore"
+  },
+  "dependencies": {
     "@gewis/planka-client": "github:GEWIS/planka-client#3bb88c2a8d86a9ba8f4fccf0a70e534047c6f88c",
     "@hey-api/client-fetch": "^0.4.2",
     "imapflow": "^1.0.164"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "devDependencies": {
+    "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config",
+    "@types/imapflow": "^1.0.19",
+    "@types/node": "^22.7.9",
+    "dotenv": "^16.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GEWIS/plankapi.git"
+  },
+  "author": "GEWIS GEFLITST",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GEWIS/plankapi/issues"
+  },
+  "homepage": "https://github.com/GEWIS/plankapi#readme",
+  "packageManager": "yarn@1.22.22"
 }

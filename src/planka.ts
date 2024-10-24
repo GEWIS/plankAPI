@@ -1,14 +1,21 @@
-import { client, createCard, getBoard, updateCard } from "planka-client";
-import type { Board, Card, List } from "@gewis/planka-client";
-import type { Client } from "@hey-api/client-fetch";
+import {
+  client,
+  createCard,
+  CreateCardRequest,
+  UpdateCardRequest,
+  getBoard,
+  updateCard, GetBoardRequest, GetBoardResponse
+} from "@gewis/planka-client";
+import type { List } from "@gewis/planka-client";
+import type { Client, Options } from "@hey-api/client-fetch";
 import type { CardEmail } from "./mailer.ts";
 
-const DEFAULT_PLANKA_URL = Deno.env.get("PLANKA_URL") ||
+const DEFAULT_PLANKA_URL = process.env["PLANKA_URL"] ||
   "http://localhost:3000";
 
 interface CacheEntry {
-  board: Board;
-  preferredList: List; // Preference is: header if present, list called 'mail' if present, otherwise first list
+  board: GetBoardResponse;
+  preferredList: List | null; // Preference is: header if present, list called 'mail' if present, otherwise first list
 }
 
 export default class Planka {
@@ -31,7 +38,7 @@ export default class Planka {
     if (!Planka.client) {
       const plankaUrl = this.settings.plankaUrl || DEFAULT_PLANKA_URL;
       const plankaApiKey = this.settings.plankaApiKey ||
-        Deno.env.get("PLANKA_API_KEY");
+        process.env["PLANKA_API_KEY"];
 
       client.setConfig({
         baseUrl: plankaUrl,
@@ -96,14 +103,22 @@ export default class Planka {
         continue;
       }
 
-      const board = await getBoard({ path: { id } });
+      const board = await getBoard({ path: { id: id.toString() } } as Options<GetBoardRequest, false>);
       const status = board.response.status;
 
-      if (status === 200) {
+      if (status === 200 && board.data) {
+
         // Find the preferred list, which is the list named 'mail' or the first list available
-        const preferredList = board.data.included.lists.find((list: List) =>
-          list.name.toLowerCase() === "mail"
-        ) || board.data.included.lists[0];
+        let preferredList = null;
+        const lists: List[] = (board.data?.included as any)?.lists ?? [];
+
+        if (lists.length > 0) {
+          // Find the list named 'mail', or fall back to the first list if not found
+          preferredList = lists.find((list: List) =>
+              list.name.toLowerCase() === "mail"
+          ) || lists[0];
+        }
+
         Planka.boardCache.set(id, { board: board.data, preferredList });
       } else if (status >= 400) {
         // Mark board as null in case of error
@@ -121,7 +136,7 @@ export default class Planka {
   static async processCards(
     cards: CardEmail[],
   ): Promise<
-    { result: { card: CardEmail; state: "ACCEPTED" | "REJECTED" }[] }
+    { card: CardEmail; state: "ACCEPTED" | "REJECTED" }[]
   > {
     Planka.pre();
 
@@ -139,7 +154,12 @@ export default class Planka {
         continue;
       }
 
-      const listId = card.listId || board.preferredList.id;
+      const listId = card.listId || board.preferredList?.id;
+      if (!listId) {
+        // Reject card if the board has no list
+        results.push({ card, state: "REJECTED" });
+        continue;
+      }
 
       // Create a new card in the appropriate list
       await createCard({
@@ -149,10 +169,12 @@ export default class Planka {
         body: {
           name: card.title,
           position: 0,
-        },
-      }).then(async (cardResponse: Card) => {
-        const status = cardResponse.response.status;
-        if (status !== 200) return;
+        }
+      } as Options<CreateCardRequest, false>).then(async (result) => {
+        const cardResult = result.data;
+        const status = result.response.status;
+
+        if (status !== 200 || !cardResult) return;
 
         results.push({ card, state: "ACCEPTED" });
 
@@ -160,13 +182,13 @@ export default class Planka {
         if (card.body) {
           await updateCard({
             path: {
-              id: cardResponse.data.item.id,
+              id: cardResult.item.id,
             },
             body: {
               description: card.body,
-              dueDate: card.date ? card.date.toISOString() : null,
+              dueDate: card.date ? card.date : null,
             },
-          });
+          } as Options<UpdateCardRequest>);
         }
       });
     }

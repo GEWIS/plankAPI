@@ -9,9 +9,10 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "composite": true,
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules"]
 }
