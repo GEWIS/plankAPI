@@ -20,7 +20,7 @@
   "devDependencies": {
     "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config#v1.2.0",
     "@types/imapflow": "^1.0.19",
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.9.0",
     "dotenv": "^16.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
