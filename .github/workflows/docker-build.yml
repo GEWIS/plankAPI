@@ -10,6 +10,6 @@ on:
 
 jobs:
   dockerize:
-    uses: GEWIS/actions/.github/workflows/docker-build.yml@3b96ebfcfddda3a8ee815ee62952ff388578fec7
+    uses: GEWIS/actions/.github/workflows/docker-build.yml@v0.0.2
     with:
       projects: '["."]'

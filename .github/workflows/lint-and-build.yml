@@ -1,10 +1,19 @@
-name: Lint and Build
+name: Lint and build
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
   build-and-lint:
-    uses: GEWIS/actions/.github/workflows/typescript-yarn-lint-and-build.yml@e16e0f26bd1d7b5efc72961dbe09267978a9fbf3
+    uses: GEWIS/actions/.github/workflows/typescript-lint-and-build.yml@v0.0.2
+    with:
+      node-version: "22.x"
+      package-manager: "yarn"
+      lint: true
+      format: false
+      build: true
