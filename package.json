@@ -4,8 +4,8 @@
   "description": "Planka API service",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "start:env": "ts-node -r dotenv/config src/index.ts",
+    "start": "node dist/src/index.js",
+    "dev": "ts-node src/index.ts",
     "build": "tsc",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
@@ -22,9 +22,9 @@
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.9.0",
     "dotenv": "^16.0.0",
+    "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.2.2",
-    "prettier": "^3.3.3"
+    "typescript": "^5.2.2"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,5 @@
     "url": "https://github.com/GEWIS/plankapi/issues"
   },
   "homepage": "https://github.com/GEWIS/plankapi#readme",
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.19"
 }

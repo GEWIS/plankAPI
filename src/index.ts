@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 import Mailer from './mailer';
 import Planka from './planka';
 
