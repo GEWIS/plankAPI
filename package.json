@@ -10,7 +10,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --ignore-path .gitignore --check ./src/",
-    "format:fix": "prettier --ignore-path .gitignore --write ./src/"
+    "format:fix": "prettier --ignore-path .gitignore --write ./src/",
+    "prepare-husky": "husky"
   },
   "dependencies": {
     "@gewis/planka-client": "github:GEWIS/planka-client#v1.1.0",
@@ -22,6 +23,7 @@
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.9.0",
     "dotenv": "^16.0.0",
+    "husky": "^9.1.6",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
