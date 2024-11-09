@@ -1,8 +1,10 @@
-import { config } from 'dotenv';
-config();
-
+import './env';
+import log4js from 'log4js';
 import Mailer from './mailer';
 import Planka from './planka';
+
+const logger = log4js.getLogger('Main');
+logger.level = process.env['LOG_LEVEL'] || 'info';
 
 // Main workflow
 async function main() {
@@ -10,12 +12,16 @@ async function main() {
   const mailer: Mailer = new Mailer();
 
   try {
+    logger.info('Starting process...');
     const emails = await mailer.handleEmails();
     const result = await Planka.processCards(emails);
     await mailer.handleResults(result);
-    console.log('Process completed successfully.');
+    logger.info('Accepted', result.filter((r) => r.state === 'ACCEPTED').length, 'cards');
+    logger.info('Rejected', result.filter((r) => r.state === 'REJECTED').length, 'cards');
   } catch (error) {
-    console.error('An error occurred during the process:', error);
+    logger.error('An error occurred during the process:', error);
+  } finally {
+    logger.info('Process completed.');
   }
 }
 

@@ -1,4 +1,5 @@
 import { ImapFlow, Readable } from 'imapflow';
+import log4js from 'log4js';
 
 export interface CardEmail {
   title: string;
@@ -79,11 +80,15 @@ export default class Mailer {
   private readonly client: ImapFlow;
   private ROOT_PATH: string = process.env['IMAP_ROOT'] || 'API';
 
+  private readonly logger = log4js.getLogger('Mailer');
+
   constructor() {
+    this.logger.level = process.env['LOG_LEVEL'] || 'warn';
     this.client = new ImapFlow({
       host: process.env['IMAP_HOST'] || 'localhost',
       port: Number(process.env['IMAP_PORT'] || '993'),
       secure: true,
+      logger: this.logger,
       auth: {
         user: process.env['IMAP_USERNAME'] || 'user',
         pass: process.env['IMAP_PASSWORD'],
@@ -102,11 +107,14 @@ export default class Mailer {
     const emails: CardEmail[] = [];
 
     try {
-      for await (const message of this.client.fetch('1:*', {
-        envelope: true,
-        headers: true,
-        flags: true,
-      })) {
+      for await (const message of this.client.fetch(
+        {},
+        {
+          envelope: true,
+          headers: true,
+          flags: true,
+        },
+      )) {
         const headers = '' + message.headers;
         const plankaBoardId = extractPlankaBoardId(headers);
         const plankaListId = extractPlankaListId(headers);
@@ -130,8 +138,9 @@ export default class Mailer {
       for (const email of emails) {
         email.body = await downloadEmailBody(this.client, email.uid);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      console.error(e);
+      // noop
     } finally {
       lock.release();
     }
@@ -153,10 +162,10 @@ export default class Mailer {
     await this.client.mailboxOpen(`${this.ROOT_PATH}/IN`);
     for (const result of results) {
       if (result.state === 'ACCEPTED') {
-        console.log('accepted', result.card.uid);
+        this.logger.trace('accepted', result.card.uid);
         await this.acceptEmail(result.card.uid);
       } else {
-        console.log('rejected', result.card.uid);
+        this.logger.trace('rejected', result.card.uid);
         await this.rejectEmail(result.card.uid);
       }
     }

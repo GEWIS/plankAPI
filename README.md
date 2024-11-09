@@ -91,6 +91,7 @@ This application requires several environment variables to function correctly. B
 | `IMAP_PASSWORD`  | The password for the IMAP account.                      | `undefined`             |
 | `PLANKA_API_KEY` | The API key for authenticating with the Planka service. | `undefined`             |
 | `PLANKA_URL`     | The base URL of the Planka API.                         | `http://localhost:3000` |
+| `LOG_LEVEL`      | The log level for the application.                      | `info`                  |
 
 ### Note:
 Make sure to replace the default values with actual credentials before running the application.

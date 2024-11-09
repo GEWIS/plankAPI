@@ -16,7 +16,8 @@
   "dependencies": {
     "@gewis/planka-client": "github:GEWIS/planka-client#v1.1.0",
     "@hey-api/client-fetch": "^0.4.2",
-    "imapflow": "^1.0.169"
+    "imapflow": "^1.0.169",
+    "log4js": "^6.9.1"
   },
   "devDependencies": {
     "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config#v1.2.0",

@@ -10,6 +10,7 @@ import {
 } from '@gewis/planka-client';
 import type { List } from '@gewis/planka-client';
 import type { Client, Options } from '@hey-api/client-fetch';
+import log4js from 'log4js';
 import type { CardEmail } from './mailer.ts';
 
 const DEFAULT_PLANKA_URL = process.env['PLANKA_URL'] || 'http://localhost:3000';
@@ -26,8 +27,11 @@ export default class Planka {
 
   private static boardCache: Map<bigint, CacheEntry | null> = new Map();
 
+  private static readonly logger = log4js.getLogger('Planka');
+
   private constructor(settings: { plankaUrl?: string; plankaApiKey?: string }) {
     this.settings = settings;
+    Planka.logger.level = process.env['LOG_LEVEL'] || 'info';
     this.initializeClient();
   }
 
@@ -77,6 +81,7 @@ export default class Planka {
    * @param {CardEmail[]} cards - List of CardEmail objects to process.
    */
   static async preProcessCards(cards: CardEmail[]) {
+    Planka.logger.trace('pre processing', cards.length, 'cards');
     Planka.pre();
     const boardIds = new Set<bigint>();
     for (const card of cards) {
@@ -101,6 +106,7 @@ export default class Planka {
 
       const board = await getBoard({ path: { id: id.toString() } } as Options<GetBoardRequest, false>);
       const status = board.response.status;
+      Planka.logger.trace('caching board', id, 'status', status);
 
       if (status === 200 && board.data) {
         // Find the preferred list, which is the list named 'mail' or the first list available
@@ -114,6 +120,7 @@ export default class Planka {
 
         Planka.boardCache.set(id, { board: board.data, preferredList });
       } else if (status >= 400) {
+        Planka.logger.warn('error caching board', id, 'status', status);
         // Mark board as null in case of error
         Planka.boardCache.set(id, null);
       }
@@ -138,6 +145,7 @@ export default class Planka {
       const board = Planka.boardCache.get(card.boardId);
 
       if (!board) {
+        Planka.logger.warn('rejecting card', card.uid, 'board not found');
         // Reject card if the board is not found in the cache
         results.push({ card, state: 'REJECTED' });
         continue;
@@ -145,6 +153,7 @@ export default class Planka {
 
       const listId = card.listId || board.preferredList?.id;
       if (!listId) {
+        Planka.logger.warn('rejecting card', card.uid, 'list not found');
         // Reject card if the board has no list
         results.push({ card, state: 'REJECTED' });
         continue;
@@ -160,6 +169,7 @@ export default class Planka {
           position: 0,
         },
       } as Options<CreateCardRequest, false>).then(async (result) => {
+        Planka.logger.trace('created card', card.uid, 'status', result.response.status);
         const cardResult = result.data;
         const status = result.response.status;
 
@@ -177,7 +187,13 @@ export default class Planka {
               description: card.body,
               dueDate: card.date ? card.date : null,
             },
-          } as Options<UpdateCardRequest>);
+          } as Options<UpdateCardRequest>)
+            .then((result) => {
+              Planka.logger.trace('updated card', card.uid, 'status', result.response.status);
+            })
+            .catch((e) => {
+              Planka.logger.error('error updating card', card.uid, e);
+            });
         }
       });
     }
