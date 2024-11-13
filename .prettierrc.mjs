@@ -1,4 +1,4 @@
-import prettier from '@gewis/eslint-config/prettier.mjs';
+import prettier from '@gewis/js-configs/prettier.mjs';
 
 /**
  * @type {import("prettier").Config}

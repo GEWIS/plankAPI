@@ -94,9 +94,9 @@
   dependencies:
     levn "^0.4.1"
 
-"@gewis/eslint-config@https://github.com/GEWIS/eslint-config#v1.2.0":
+"@gewis/js-configs@https://github.com/GEWIS/js-configs#v2.0.0":
   version "0.0.0"
-  resolved "https://github.com/GEWIS/eslint-config#6c7064c26f650da9a1776309b02ee5623b893647"
+  resolved "https://github.com/GEWIS/js-configs#fe15410e4cc13b14c0097e3f285c5186678b5d5b"
   dependencies:
     "@eslint/compat" "^1.2.2"
     "@eslint/js" "^9.12.0"

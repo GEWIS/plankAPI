@@ -1,5 +1,5 @@
 import { ImapFlow, Readable } from 'imapflow';
-import log4js from 'log4js';
+import { getLogger } from 'log4js';
 
 export interface CardEmail {
   title: string;
@@ -80,7 +80,7 @@ export default class Mailer {
   private readonly client: ImapFlow;
   private ROOT_PATH: string = process.env['IMAP_ROOT'] || 'API';
 
-  private readonly logger = log4js.getLogger('Mailer');
+  private readonly logger = getLogger('Mailer');
 
   constructor() {
     this.logger.level = process.env['LOG_LEVEL'] || 'warn';
@@ -115,6 +115,7 @@ export default class Mailer {
           flags: true,
         },
       )) {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         const headers = '' + message.headers;
         const plankaBoardId = extractPlankaBoardId(headers);
         const plankaListId = extractPlankaListId(headers);
