@@ -1,9 +1,9 @@
 import './env';
-import log4js from 'log4js';
+import { getLogger } from 'log4js';
 import Mailer from './mailer';
 import Planka from './planka';
 
-const logger = log4js.getLogger('Main');
+const logger = getLogger('Main');
 logger.level = process.env['LOG_LEVEL'] || 'info';
 
 // Main workflow

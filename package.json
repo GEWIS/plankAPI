@@ -20,7 +20,7 @@
     "log4js": "^6.9.1"
   },
   "devDependencies": {
-    "@gewis/eslint-config": "https://github.com/GEWIS/eslint-config#v1.2.0",
+    "@gewis/js-configs": "https://github.com/GEWIS/js-configs#v2.0.0",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.9.0",
     "dotenv": "^16.0.0",

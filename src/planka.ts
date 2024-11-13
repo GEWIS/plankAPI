@@ -10,7 +10,7 @@ import {
 } from '@gewis/planka-client';
 import type { List } from '@gewis/planka-client';
 import type { Client, Options } from '@hey-api/client-fetch';
-import log4js from 'log4js';
+import { getLogger } from 'log4js';
 import type { CardEmail } from './mailer.ts';
 
 const DEFAULT_PLANKA_URL = process.env['PLANKA_URL'] || 'http://localhost:3000';
@@ -27,7 +27,7 @@ export default class Planka {
 
   private static boardCache: Map<bigint, CacheEntry | null> = new Map();
 
-  private static readonly logger = log4js.getLogger('Planka');
+  private static readonly logger = getLogger('Planka');
 
   private constructor(settings: { plankaUrl?: string; plankaApiKey?: string }) {
     this.settings = settings;
