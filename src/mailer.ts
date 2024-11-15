@@ -126,7 +126,6 @@ export default class Mailer {
           continue;
         }
 
-        console.error(message);
         emails.unshift({
           boardId: BigInt(plankaBoardId),
           listId: plankaListId ? BigInt(plankaListId) : null,
@@ -148,7 +147,7 @@ export default class Mailer {
 
     if (rejected.length !== 0) {
       await this.client.mailboxOpen(`${this.ROOT_PATH}/IN`);
-      await this.rejectEmail(rejected.join(',')).catch((e) => console.error(e));
+      await this.rejectEmail(rejected.join(',')).catch((e) => this.logger.error(e));
       await this.client.mailboxClose();
     }
 
