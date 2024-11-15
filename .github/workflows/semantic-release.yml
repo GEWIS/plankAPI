@@ -4,14 +4,21 @@ on:
   push:
     branches:
       - main
+      - ci/action-workflow-update
 
 jobs:
-  semantic-release:
-    uses: GEWIS/actions/.github/workflows/semantic-release.yml@v0.0.2
+  versioning:
+    uses: GEWIS/actions/.github/workflows/versioning.yml@b20c885760bd6071d5ae6aef1294b02f2bf43f4a
+
+  release:
+    uses: GEWIS/actions/.github/workflows/docker-release.yml@b20c885760bd6071d5ae6aef1294b02f2bf43f4a
+#    if: needs.versioning.outputs.new_version != ''
     with:
       projects: "['.']"
+      version: "v1.2.0"
       docker_registry: "abc.docker-registry.gewis.nl"
       docker_paths: "['eou/plankapi']"
+      github_registry: "true"
     secrets:
       REGISTRY_USERNAME: ${{ secrets.SVC_GH_ABCEOU_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.SVC_GH_ABCEOU_PWD }}
