@@ -1,4 +1,4 @@
-# Planka Email Integration
+# 📧 Planka Email Integration
 
 This project integrates email processing with [Planka](https://github.com/plankanban/planka?tab=readme-ov-file), a Kanban board management tool. The application retrieves emails, extracts relevant information to create cards on Planka, and manages the acceptance or rejection of these cards based on specific criteria.
 
@@ -63,6 +63,17 @@ docker build -t plankapi .
 
 The image will execute `yarn start` using a cron schedule, which will run the application every hour.
 
+To email the application, make sure to first read the Email Setup section below. If you have set up the email account correctly, it should work out of the box.
+
+For the application to accept an email, it must have a `X-Planka-Board-ID` and optionally a `X-Planka-List-ID` header.
+The `X-Planka-Board-ID` header should contain the ID of the board to create the card on, while the `X-Planka-List-ID` header (if present) should contain the ID of the list to create the card in.
+If the `X-Planka-List-ID` header is not present, the application will create the card in a list with the name `Mail`. If this also does not exist, it will add it to the first list in the board.
+
+Adding custom headers to an email is not something that most email clients support. Thunderbird has an add-on called [Header Tools Lite](https://addons.thunderbird.net/en-US/thunderbird/addon/header-tools-lite/) which we recommend.
+
+> [!NOTE]  
+> The Planka account used by the application must have write access to the planka board to create cards.
+
 ## Email Setup
 
 To use this application, you will need to set up an email account with a provider that supports IMAP (such as Gmail, Outlook, or Yahoo).
@@ -76,6 +87,10 @@ Make sure that the following folders exist in the `IMAP_ROOT` mailbox:
 
 These folders will be used to store the incoming, processed, and rejected emails, respectively.
 The application will not create these folders if they do not exist, so make sure to create them before running the application.
+
+> [!IMPORTANT]  
+> E-mails send to the inbox will not be processed. This is by design, as a planka board id is not secret and would allow anyone to create a card on the board.
+> Therefore, you should add a filter to your email account which will file emails to the `IN` folder if they are from a trusted sender.
 
 ## Environment Variables
 
@@ -93,49 +108,18 @@ This application requires several environment variables to function correctly. B
 | `PLANKA_URL`     | The base URL of the Planka API.                         | `http://localhost:3000` |
 | `LOG_LEVEL`      | The log level for the application.                      | `info`                  |
 
-### Note:
-Make sure to replace the default values with actual credentials before running the application.
+### `PLANKA_API_KEY`:
+Currently, Planka does not official support API keys. This means that you will have to insert a long-lived session token in the database manually.
 
 ## Code Overview
 
-### Main Workflow
+This application follows a structured workflow to integrate email processing with Planka. The main process involves initializing a Planka client, retrieving emails from an IMAP server, and processing them to create cards in Planka. Emails are categorized and handled based on the results of the processing:
 
-The main workflow is defined in `index.ts`:
+1. **Email Retrieval**: The `Mailer` class connects to the IMAP server to fetch emails, extract information, and identify board and list IDs from email headers.
+2. **Card Creation**: The `Planka` class uses the extracted data to create cards on the specified Planka board and list.
+3. **Result Handling**: The `Mailer` class moves processed emails into designated mailboxes (`OUT` for accepted and `REJECTED` for rejected emails).
 
-```typescript
-import Mailer from "./mailer";
-import Planka from "./planka";
-
-// Main workflow
-async function main() {
-   Planka.initialize();
-   const mailer: Mailer = new Mailer();
-
-   try {
-      const emails = await mailer.handleEmails();
-      const result = await Planka.processCards(emails);
-      await mailer.handleResults(result);
-      console.log("Process completed successfully.");
-   } catch (error) {
-      console.error("An error occurred during the process:", error);
-   }
-}
-
-// Execute main if this is the main module
-if (require.main === module) {
-   void main();
-}
-```
-
-The `Dockerfile` will simply execute the index.ts file based on a cron schedule.
-
-### Mailer Class
-
-The `Mailer` class is responsible for connecting to the IMAP server, handling emails, and moving accepted or rejected emails to appropriate mailboxes.
-
-### Planka Class
-
-The `Planka` class initializes the Planka client, caches boards, and processes card creation based on emails received.
+This workflow runs on a scheduled basis using a Dockerized setup, executing the primary script (`index.ts`) at regular intervals.
 
 ## License
 
