@@ -39,6 +39,10 @@ This project integrates email processing with [Planka](https://github.com/planka
    yarn install
    ```
 
+> [!NOTE]  
+> The projects uses packages hosted on GitHub Packages, and requires a GitHub token to be set up in the environment.
+> You can follow the instructions [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages) to set up a token.
+
 4. **Copy the .env-example File**
 
    ```bash
