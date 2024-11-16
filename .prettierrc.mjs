@@ -1,8 +1,8 @@
-import prettier from '@gewis/js-configs/prettier.mjs';
+import  { prettierConfig } from '@gewis/prettier-config';
 
 /**
  * @type {import("prettier").Config}
  */
 export default {
-  ...prettier,
+  ...prettierConfig,
 };
