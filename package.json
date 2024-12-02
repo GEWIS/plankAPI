@@ -22,7 +22,7 @@
   "devDependencies": {
     "@gewis/js-configs": "https://github.com/GEWIS/js-configs#v2.0.0",
     "@types/imapflow": "^1.0.19",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.10.1",
     "dotenv": "^16.0.0",
     "husky": "^9.1.7",
     "prettier": "^3.4.1",
