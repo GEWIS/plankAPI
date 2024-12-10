@@ -23,7 +23,7 @@
     "@gewis/js-configs": "https://github.com/GEWIS/js-configs#v2.0.0",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.10.1",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.4.7",
     "husky": "^9.1.7",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
