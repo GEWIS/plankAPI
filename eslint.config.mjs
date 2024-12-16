@@ -1,7 +1,7 @@
-import eslint from '@gewis/js-configs/eslint.common.mjs';
-import prettier from '@gewis/js-configs/eslint.prettier.mjs';
+import  { eslintConfig as common } from '@gewis/eslint-config-typescript';
+import  { eslintConfig as prettier } from '@gewis/prettier-config';
 
 export default [
-    ...eslint,
-    ...prettier,
+    ...common,
+    prettier
 ];
