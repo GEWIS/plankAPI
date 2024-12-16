@@ -16,11 +16,13 @@
   "dependencies": {
     "@gewis/planka-client": "github:GEWIS/planka-client#v1.1.0",
     "@hey-api/client-fetch": "^0.5.4",
+    "eslint": "^9.17.0",
     "imapflow": "^1.0.171",
     "log4js": "^6.9.1"
   },
   "devDependencies": {
-    "@gewis/js-configs": "https://github.com/GEWIS/js-configs#v2.0.0",
+    "@gewis/eslint-config-typescript": "^2.2.0",
+    "@gewis/prettier-config": "^2.2.0",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.10.2",
     "dotenv": "^16.4.7",
