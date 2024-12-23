@@ -127,10 +127,15 @@
   dependencies:
     "@hey-api/client-fetch" "^0.4.2"
 
-"@hey-api/client-fetch@^0.4.2", "@hey-api/client-fetch@^0.4.3":
+"@hey-api/client-fetch@^0.4.2":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.4.3.tgz#6d7cb9c24df34187d17c2685736bc00c402b74d7"
   integrity sha512-Y0McgfJED/Iq6Tr8LgewFL+qrOpb87rUBUJkc6mLzxqTkqF52KcexYZPlKyjee0Qb/oUJOupFRpvUEWjH/339w==
+
+"@hey-api/client-fetch@^0.5.7":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.5.7.tgz#4f15daf01f8ed23c0cfe199edcef0a7d14cf7aed"
+  integrity sha512-hLpID6NCs8+stbz935UyvyGOXY44oLBSOy7ZEpwXxj977A/0U41iihDQllDoCJrxtbe06DnDgwPOn6/xnRJ71w==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
