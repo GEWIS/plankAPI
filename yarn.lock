@@ -102,6 +102,11 @@
     "@vue/eslint-config-prettier" "^10.0.0"
     eslint-config-prettier "^9.1.0"
 
+"@hey-api/client-fetch@^0.4.2":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.4.4.tgz#130ef41b558e2172d59278aa075a7ae4f060e851"
+  integrity sha512-ebh1JjUdMAqes/Rg8OvbjDqGWGNhgHgmPtHlkIOUtj3y2mUXqX2g9sVoI/rSKW/FdADPng/90k5AL7bwT8W2lA==
+
 "@hey-api/client-fetch@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.6.0.tgz#50e10b29d3d08ff740061fd9fe54cc4445571a8b"
@@ -1190,10 +1195,10 @@ ignore@^5.2.0, ignore@^5.3.1:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
-imapflow@^1.0.171:
-  version "1.0.174"
-  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.174.tgz#8bd020a7125605bcf942796371ea6979e75f3d4c"
-  integrity sha512-GLpinGBVZHgi09rSZLP5YoTjb2Z+p9Sc5fUrmka/WEkAVlsSVKFqO0AobQPIRBsyDIXqWuvV2e1/DZOfHYaBUQ==
+imapflow@^1.0.177:
+  version "1.0.177"
+  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.177.tgz#47892448bd56d97029d488925e7ecc9f4e9683d6"
+  integrity sha512-FXM2wR3eD7YyrvvUif/0C3IGhpGuHhCASqRWWz4+1EcbwdySefayWahkRe43dF61XEYxhwbWhD39LbAwJxxX1g==
   dependencies:
     encoding-japanese "2.2.0"
     iconv-lite "0.6.3"
