@@ -102,6 +102,11 @@
     "@vue/eslint-config-prettier" "^10.0.0"
     eslint-config-prettier "^9.1.0"
 
+"@hey-api/client-fetch@^0.4.2":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.4.4.tgz#130ef41b558e2172d59278aa075a7ae4f060e851"
+  integrity sha512-ebh1JjUdMAqes/Rg8OvbjDqGWGNhgHgmPtHlkIOUtj3y2mUXqX2g9sVoI/rSKW/FdADPng/90k5AL7bwT8W2lA==
+
 "@hey-api/client-fetch@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.6.0.tgz#50e10b29d3d08ff740061fd9fe54cc4445571a8b"
@@ -1190,10 +1195,10 @@ ignore@^5.2.0, ignore@^5.3.1:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
-imapflow@^1.0.171:
-  version "1.0.174"
-  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.174.tgz#8bd020a7125605bcf942796371ea6979e75f3d4c"
-  integrity sha512-GLpinGBVZHgi09rSZLP5YoTjb2Z+p9Sc5fUrmka/WEkAVlsSVKFqO0AobQPIRBsyDIXqWuvV2e1/DZOfHYaBUQ==
+imapflow@^1.0.178:
+  version "1.0.178"
+  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.178.tgz#fa7867f7eba0368f1fc0588067ed7054087f4602"
+  integrity sha512-Pl2rBKn39e/szBYIHhP9lGSob0KkRmVMbiCMTDWc1S94icELaFumnCrt6mynV8Ro6T78QbwucBjr47u3pDhaPw==
   dependencies:
     encoding-japanese "2.2.0"
     iconv-lite "0.6.3"
@@ -1201,7 +1206,7 @@ imapflow@^1.0.171:
     libmime "5.3.6"
     libqp "2.1.1"
     mailsplit "5.4.2"
-    nodemailer "6.9.16"
+    nodemailer "6.10.0"
     pino "9.6.0"
     socks "2.8.3"
 
@@ -1588,10 +1593,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-nodemailer@6.9.16:
-  version "6.9.16"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.16.tgz#3ebdf6c6f477c571c0facb0727b33892635e0b8b"
-  integrity sha512-psAuZdTIRN08HKVd/E8ObdV6NO7NTBY3KsC30F7M4H1OnmLCUNaS56FpYxyb26zWLSyYF9Ozch9KYHhHegsiOQ==
+nodemailer@6.10.0:
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.10.0.tgz#1f24c9de94ad79c6206f66d132776b6503003912"
+  integrity sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==
 
 object-inspect@^1.13.3:
   version "1.13.3"
