@@ -88,11 +88,12 @@
     eslint-plugin-import "^2.31.0"
     typescript-eslint "^8.10.0"
 
-"@gewis/planka-client@github:GEWIS/planka-client#v1.1.1":
+"@gewis/planka-client@github:GEWIS/planka-client#v1.2.0":
   version "1.0.0"
-  resolved "https://codeload.github.com/GEWIS/planka-client/tar.gz/9bb2e7f805c963484585f81e257214eade74751d"
+  uid fbb6c38f476073ae824df882ebbdbf9dd7e50876
+  resolved "https://codeload.github.com/GEWIS/planka-client/tar.gz/fbb6c38f476073ae824df882ebbdbf9dd7e50876"
   dependencies:
-    "@hey-api/client-fetch" "^0.4.2"
+    "@hey-api/client-fetch" "^0.8.0"
 
 "@gewis/prettier-config@^2.2.0":
   version "2.2.0"
@@ -106,6 +107,11 @@
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.6.0.tgz#50e10b29d3d08ff740061fd9fe54cc4445571a8b"
   integrity sha512-FlhFsVeH8RxJe/nq8xUzxNbiOpe+GadxlD2pfvDyOyLdCTU4o/LRv46ZVWstaW7DgF4nxhI328chy3+AulwVXw==
+
+"@hey-api/client-fetch@^0.8.0":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.8.1.tgz#4c52b96e44f96e31c620e2a05b772cea84e775a0"
+  integrity sha512-AaVNVLBl7N9Fun7QDnb00YDubAFjB9ICi5U6kmzcJSnnQTQGRMsuBBRupQV5ERdMMFt71zjSDym7Z+gLVe8m3A==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
