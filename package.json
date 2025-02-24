@@ -20,7 +20,7 @@
     "log4js": "^6.9.1"
   },
   "devDependencies": {
-    "@gewis/eslint-config-typescript": "^2.2.0",
+    "@gewis/eslint-config-typescript": "^2.2.2",
     "@gewis/prettier-config": "^2.2.0",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.13.5",
