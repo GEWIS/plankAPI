@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@gewis/eslint-config-typescript": "^2.2.2",
-    "@gewis/prettier-config": "^2.2.0",
+    "@gewis/prettier-config": "^2.2.2",
     "@types/imapflow": "^1.0.19",
     "@types/node": "^22.13.5",
     "dotenv": "^16.4.7",
