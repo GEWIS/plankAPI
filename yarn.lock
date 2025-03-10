@@ -107,10 +107,10 @@
     "@vue/eslint-config-prettier" "^10.2.0"
     eslint-config-prettier "^10.0.1"
 
-"@hey-api/client-fetch@^0.8.1", "@hey-api/client-fetch@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.8.2.tgz#675aadfbc9478bb8eef5679f11a9334258dff4c8"
-  integrity sha512-61T4UGfAzY5345vMxWDX8qnSTNRJcOpWuZyvNu3vNebCTLPwMQAM85mhEuBoACdWeRtLhNoUjU0UR5liRyD1bA==
+"@hey-api/client-fetch@^0.8.1", "@hey-api/client-fetch@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.8.3.tgz#704adf5a4813e8181daa983a0f1e6c72a8128b01"
+  integrity sha512-EBVa8wwUMyBSeQ32PtCz6u5bFQZIMAufvwCT1ZtpjqT3caJQEza4NokbGU50q1ZVrMsM5Ot6GuDNJOF3TMo26Q==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
