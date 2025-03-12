@@ -218,10 +218,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.6.tgz#628effeeae2064a1b4e79f78e81d87b7e5fc7b50"
   integrity sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==
 
-"@types/imapflow@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@types/imapflow/-/imapflow-1.0.19.tgz#d0e5c3e59683265810d442e23e4b7266d6bce3dc"
-  integrity sha512-U48VZXe4XYhS3AFNI+4ougW8OXI4VaKjyF0nGXgVzIN8SPs9lh2LPNRM0HmIM+hUTw60l7MHgbQO8hsf+Q4U5w==
+"@types/imapflow@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@types/imapflow/-/imapflow-1.0.20.tgz#94b866e116f0a5d929375c3433710fea0b53dbda"
+  integrity sha512-kmBeiV815byuxYlu2lomAx3VY3SsyOYg4rDsK5vT6CGZ6Sow2AUEZwieql8uAizO6+p4sQchw/g3vQX76XBIpA==
   dependencies:
     "@types/node" "*"
 
@@ -1188,20 +1188,20 @@ ignore@^5.2.0, ignore@^5.3.1:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
-imapflow@^1.0.171:
-  version "1.0.181"
-  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.181.tgz#99b6c17b688e3746978b5c960327517f4fec4f3f"
-  integrity sha512-WrKRU1rffzWr/oZI6/jS5IgmdczSzRjpE0jvk6LOGlp+HJRXBnl3CzwHkJXCfq/1M4EsrVQyy+1WiQYuiIkRiw==
+imapflow@^1.0.184:
+  version "1.0.184"
+  resolved "https://registry.yarnpkg.com/imapflow/-/imapflow-1.0.184.tgz#01201922151868e8d868cb101201a4d5bea6bd5f"
+  integrity sha512-GKGyNBe7JWF+vP7TZP5AcGe1XJzw+H2D1MGPqdJc5SZ2KQLvGBF/JIhx/TCp3962oraQwW8CTUDFRtRGcEzkMQ==
   dependencies:
     encoding-japanese "2.2.0"
     iconv-lite "0.6.3"
     libbase64 "1.3.0"
     libmime "5.3.6"
     libqp "2.1.1"
-    mailsplit "5.4.2"
+    mailsplit "5.4.3"
     nodemailer "6.10.0"
     pino "9.6.0"
-    socks "2.8.3"
+    socks "2.8.4"
 
 import-fresh@^3.2.1:
   version "3.3.1"
@@ -1526,10 +1526,10 @@ log4js@^6.9.1:
     rfdc "^1.3.0"
     streamroller "^3.1.5"
 
-mailsplit@5.4.2:
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/mailsplit/-/mailsplit-5.4.2.tgz#ee2be344bb3511345c0bd6ea72e5657acb8cd83b"
-  integrity sha512-4cczG/3Iu3pyl8JgQ76dKkisurZTmxMrA4dj/e8d2jKYcFTZ7MxOzg1gTioTDMPuFXwTrVuN/gxhkrO7wLg7qA==
+mailsplit@5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/mailsplit/-/mailsplit-5.4.3.tgz#470ebca836d87bd8fa6a72d36536238b85921765"
+  integrity sha512-PFV0BBh4Tv7Omui5FtXXVtN4ExAxIi8Yvmb9JgBz+J6Hnnrv/YYXLlKKudLhXwd3/qWEATOslRsnzVCWDeCnmQ==
   dependencies:
     libbase64 "1.3.0"
     libmime "5.3.6"
@@ -1989,10 +1989,10 @@ smart-buffer@^4.2.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-socks@2.8.3:
-  version "2.8.3"
-  resolved "https://registry.yarnpkg.com/socks/-/socks-2.8.3.tgz#1ebd0f09c52ba95a09750afe3f3f9f724a800cb5"
-  integrity sha512-l5x7VUUWbjVFbafGLxPWkYsHIhEvmF85tbIeFZWc8ZPtoMyybuEhL7Jye/ooC4/d48FgOjSJXgsF/AJPYCW8Zw==
+socks@2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/socks/-/socks-2.8.4.tgz#07109755cdd4da03269bda4725baa061ab56d5cc"
+  integrity sha512-D3YaD0aRxR3mEcqnidIs7ReYJFVzWdd6fXJYUM8ixcQcJRGTka/b3saV0KflYhyVJXKhb947GndU35SxYNResQ==
   dependencies:
     ip-address "^9.0.5"
     smart-buffer "^4.2.0"
