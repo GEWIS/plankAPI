@@ -11,7 +11,7 @@ import {
 import type { List } from '@gewis/planka-client';
 import type { Client, Options } from '@hey-api/client-fetch';
 import { getLogger } from 'log4js';
-import type { CardEmail } from './mailer.ts';
+import type { CardEmail } from './mailer';
 
 const DEFAULT_PLANKA_URL = process.env['PLANKA_URL'] || 'http://localhost:3000';
 
