@@ -62,11 +62,6 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.22.0":
-  version "9.22.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.22.0.tgz#4ff53649ded7cbce90b444b494c234137fa1aa3d"
-  integrity sha512-vLFajx9o8d1/oL2ZkpMYbkLv8nDB6yaIwFNt7nI4+I80U/z03SxmfOMsLbvWr3p7C+Wnoh//aOu2pQW8cS0HCQ==
-
 "@eslint/js@9.23.0":
   version "9.23.0"
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.23.0.tgz#c09ded4f3dc63b40b933bcaeb853fceddb64da30"
@@ -85,13 +80,13 @@
     "@eslint/core" "^0.12.0"
     levn "^0.4.1"
 
-"@gewis/eslint-config-typescript@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@gewis/eslint-config-typescript/-/eslint-config-typescript-2.3.0.tgz#019c09f3fa8f16e39e196f3ac31c4cc39851cc90"
-  integrity sha512-zY6cunsYvYax3OUS0nTME06GowgUJOfXy5D12PQMDnfLt+H3yQusTSDYwmA2bCAlqFa+VGBPaq9lxzCAo7qDug==
+"@gewis/eslint-config-typescript@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@gewis/eslint-config-typescript/-/eslint-config-typescript-2.4.0.tgz#aa674d58114a70e7feb2a9055a2334b707e71674"
+  integrity sha512-OWi+7BQDUJgmbNSHygUN8We0RRx5EpclbZNAjUiPNedFdE5GpkVa6zSYrdxFzbd/Rwv3vp0pc0pMjt9M0S+/mw==
   dependencies:
     "@eslint/compat" "^1.2.7"
-    "@eslint/js" "9.22.0"
+    "@eslint/js" "9.23.0"
     eslint-import-resolver-typescript "^3.8.3"
     eslint-plugin-import "^2.31.0"
     typescript-eslint "^8.25.0"
