@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@gewis/planka-client": "^2.0.1",
-    "@hey-api/client-fetch": "^0.8.2",
+    "@hey-api/client-fetch": "^0.8.4",
     "imapflow": "^1.0.184",
     "log4js": "^6.9.1"
   },
