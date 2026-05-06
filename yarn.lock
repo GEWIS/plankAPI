@@ -96,12 +96,12 @@
     eslint-plugin-import "^2.31.0"
     typescript-eslint "^8.25.0"
 
-"@gewis/planka-client@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@gewis/planka-client/-/planka-client-2.0.1.tgz#aa290262752f825bc3d4eaf283e2462419500f2b"
-  integrity sha512-1XDahfHOIXuAeMpzjlrQbwhRORbrwN8gjsuwy4W9gPrEZ1hP9BfwBlchjRC7I4Dm82pkvvHu20UWbspL3UONbA==
+"@gewis/planka-client@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@gewis/planka-client/-/planka-client-3.0.1.tgz#02bb65adb5fca4cb4d825022f61c973f85e74088"
+  integrity sha512-2BHT4bonHWsodenhzAulW8o/CSGkO7MyfX2JtOOLmZ+VRIVNHrIFplKWwX/p6i3XBiS7sBaTtl03fiNqlMyBgQ==
   dependencies:
-    "@hey-api/client-fetch" "^0.8.1"
+    "@hey-api/client-fetch" "0.13.1"
 
 "@gewis/prettier-config@^2.2.2":
   version "2.2.2"
@@ -111,10 +111,10 @@
     "@vue/eslint-config-prettier" "^10.2.0"
     eslint-config-prettier "^10.0.1"
 
-"@hey-api/client-fetch@^0.8.1", "@hey-api/client-fetch@^0.8.4":
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.8.4.tgz#2dc2d368b4dd2137789f46adcae68ccd04ea2adb"
-  integrity sha512-SWtUjVEFIUdiJGR2NiuF0njsSrSdTe7WHWkp3BLH3DEl2bRhiflOnBo29NSDdrY90hjtTQiTQkBxUgGOF29Xzg==
+"@hey-api/client-fetch@0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@hey-api/client-fetch/-/client-fetch-0.13.1.tgz#d01cdeed5f5b5b5706d52ffe29387741d2a533e0"
+  integrity sha512-29jBRYNdxVGlx5oewFgOrkulZckpIpBIRHth3uHFn1PrL2ucMy52FvWOY3U3dVx2go1Z3kUmMi6lr07iOpUqqA==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"

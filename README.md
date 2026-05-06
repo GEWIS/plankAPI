@@ -109,7 +109,10 @@ This application requires several environment variables to function correctly. B
 | `LOG_LEVEL`      | The log level for the application.                      | `info`                  |
 
 ### `PLANKA_API_KEY`:
-Currently, Planka does not official support API keys. This means that you will have to insert a long-lived session token in the database manually.
+Planka v2 supports per-user API keys natively. Mint one with `POST /api/users/{id}/api-key` (the full key is returned only once, in `included.apiKey`) and store the result in this variable. The client sends it as the `X-Api-Key` header on every request.
+
+### `PLANKA_URL`:
+The Planka base URL. The `/api` segment is appended automatically if missing — both `https://planka.example.com` and `https://planka.example.com/api` work.
 
 ## Code Overview
 

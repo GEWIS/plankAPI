@@ -1,15 +1,16 @@
 import {
   client,
   createCard,
-  CreateCardRequest,
-  UpdateCardRequest,
+  type CreateCardData,
+  type GetBoardData,
+  type GetBoardResponse,
   getBoard,
+  type List,
+  type Options,
   updateCard,
-  GetBoardRequest,
-  GetBoardResponse,
+  type UpdateCardData,
+  withApiKey,
 } from '@gewis/planka-client';
-import type { List } from '@gewis/planka-client';
-import type { Client, Options } from '@hey-api/client-fetch';
 import { getLogger } from 'log4js';
 import type { CardEmail } from './mailer';
 
@@ -20,9 +21,14 @@ interface CacheEntry {
   preferredList: List | null; // Preference is: header if present, list called 'mail' if present, otherwise first list
 }
 
+const ensureApiSuffix = (url: string): string => {
+  const trimmed = url.replace(/\/+$/, '');
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+};
+
 export default class Planka {
   private static instance: Planka | null = null;
-  private static client: Client | null = null;
+  private static initialized = false;
   private settings: { plankaUrl?: string; plankaApiKey?: string };
 
   private static boardCache: Map<bigint, CacheEntry | null> = new Map();
@@ -40,18 +46,19 @@ export default class Planka {
    * Sets up API configuration like base URL and authentication.
    */
   private initializeClient() {
-    if (!Planka.client) {
-      const plankaUrl = this.settings.plankaUrl || DEFAULT_PLANKA_URL;
-      const plankaApiKey = this.settings.plankaApiKey || process.env['PLANKA_API_KEY'];
+    if (Planka.initialized) return;
 
-      client.setConfig({
-        baseUrl: plankaUrl,
-        headers: {
-          Authorization: `Bearer ${plankaApiKey}`,
-        },
-      });
-      Planka.client = client;
+    const plankaUrl = this.settings.plankaUrl || DEFAULT_PLANKA_URL;
+    const plankaApiKey = this.settings.plankaApiKey || process.env['PLANKA_API_KEY'];
+    if (!plankaApiKey) {
+      throw new Error('PLANKA_API_KEY is required (mint one via createUserApiKey).');
     }
+
+    client.setConfig({
+      baseUrl: ensureApiSuffix(plankaUrl),
+      ...withApiKey(plankaApiKey),
+    });
+    Planka.initialized = true;
   }
 
   /**
@@ -71,7 +78,7 @@ export default class Planka {
    * Throws an error if the client isn't initialized.
    */
   private static pre() {
-    if (!Planka.client) {
+    if (!Planka.initialized) {
       throw new Error('Client has not been initialized. Please call initialize() first.');
     }
   }
@@ -104,8 +111,8 @@ export default class Planka {
         continue;
       }
 
-      const board = await getBoard({ path: { id: id.toString() } } as Options<GetBoardRequest, false>);
-      const status = board.response.status;
+      const board = await getBoard({ path: { id: id.toString() } } as Options<GetBoardData, false>);
+      const status = board.response?.status ?? 0;
       Planka.logger.trace('caching board', id, 'status', status);
 
       if (status === 200 && board.data) {
@@ -115,7 +122,7 @@ export default class Planka {
 
         if (lists.length > 0) {
           // Find the list named 'mail', or fall back to the first list if not found
-          preferredList = lists.find((list: List) => list.name.toLowerCase() === 'mail') || lists[0];
+          preferredList = lists.find((list: List) => list.name?.toLowerCase() === 'mail') || lists[0];
         }
 
         Planka.boardCache.set(id, { board: board.data, preferredList });
@@ -168,10 +175,10 @@ export default class Planka {
           name: card.title,
           position: 0,
         },
-      } as Options<CreateCardRequest, false>).then(async (result) => {
-        Planka.logger.trace('created card', card.uid, 'status', result.response.status);
+      } as Options<CreateCardData, false>).then(async (result) => {
+        const status = result.response?.status ?? 0;
+        Planka.logger.trace('created card', card.uid, 'status', status);
         const cardResult = result.data;
-        const status = result.response.status;
 
         if (status !== 200 || !cardResult) return;
 
@@ -187,9 +194,9 @@ export default class Planka {
               description: card.body,
               dueDate: card.date ? card.date : null,
             },
-          } as Options<UpdateCardRequest>)
+          } as Options<UpdateCardData>)
             .then((result) => {
-              Planka.logger.trace('updated card', card.uid, 'status', result.response.status);
+              Planka.logger.trace('updated card', card.uid, 'status', result.response?.status ?? 0);
             })
             .catch((e) => {
               Planka.logger.error('error updating card', card.uid, e);
