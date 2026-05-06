@@ -14,8 +14,7 @@
     "prepare-husky": "husky"
   },
   "dependencies": {
-    "@gewis/planka-client": "^2.0.1",
-    "@hey-api/client-fetch": "^0.8.4",
+    "@gewis/planka-client": "3.0.1",
     "imapflow": "^1.0.184",
     "log4js": "^6.9.1"
   },
