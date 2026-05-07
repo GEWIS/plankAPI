@@ -10,15 +10,10 @@ jobs:
     uses: GEWIS/actions/.github/workflows/versioning.yml@v1
 
   release:
-    uses: GEWIS/actions/.github/workflows/docker-release.yml@v1
+    uses: GEWIS/actions/.github/workflows/docker-release-ghcr.yml@v1
     needs: versioning
     if: ${{ needs.versioning.outputs.next-version != '' }}
     with:
       projects: '["."]'
+      docker-paths: '["gewis/plankapi"]'
       version: ${{ needs.versioning.outputs.next-version }}
-      docker-registry: "abc.docker-registry.gewis.nl"
-      docker-paths: '["eou/plankapi"]'
-      github-registry: "true"
-    secrets:
-      REGISTRY_USERNAME: ${{ secrets.SVC_GH_ABCEOU_USERNAME }}
-      REGISTRY_PASSWORD: ${{ secrets.SVC_GH_ABCEOU_PWD }}
