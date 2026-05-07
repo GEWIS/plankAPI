@@ -172,6 +172,7 @@ export default class Planka {
           listId,
         },
         body: {
+          type: 'project',
           name: card.title,
           position: 0,
         },
